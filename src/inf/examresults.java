@@ -1,0 +1,576 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package inf;
+
+import java.awt.Toolkit;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
+/**
+ *
+ * @author Raveen
+ */
+public class examresults extends javax.swing.JFrame {
+
+    /**
+     * Creates new form home
+     */
+    public examresults() {
+        initComponents();
+        setIconImage();
+        Connect();
+    }
+
+    Connection con;
+    PreparedStatement pst;
+    ResultSet rs;
+    
+    
+    void LoadResults()
+    {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            com.mysql.jdbc.Connection con = (com.mysql.jdbc.Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/2checkdb", "root", "");
+         
+            pst = (com.mysql.jdbc.PreparedStatement) con.prepareStatement("SELECT modulecode,module,grade FROM results WHERE year=? AND semester=? AND userid=? AND NOT grade='F'");
+            pst.setString(1, String.valueOf(yearBox.getSelectedItem()));
+            pst.setString(2, String.valueOf(semBox.getSelectedItem()));
+            pst.setString(3, userID.getText());
+            
+            
+            ResultSet rs = pst.executeQuery();
+            while(resultTable.getRowCount()>0)
+            {
+                ((DefaultTableModel)resultTable.getModel()).removeRow(0);
+            }
+            
+            int col = rs.getMetaData().getColumnCount();
+            while(rs.next())
+            {
+              Object [] rows = new Object[col];
+              for(int i=1;i<=col;i++)
+              {
+                  rows[i-1] = rs.getObject(i);
+              }
+              ((DefaultTableModel)resultTable.getModel()).insertRow(rs.getRow() -1, rows);
+            
+            }
+            rs.close();
+            pst.close();
+           
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CrudForAdminOnG.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudForAdminOnG.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        
+        
+        
+    }
+    
+    
+    void LoadRepeat()
+    {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            com.mysql.jdbc.Connection con = (com.mysql.jdbc.Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/2checkdb", "root", "");
+         
+            pst = (com.mysql.jdbc.PreparedStatement) con.prepareStatement("SELECT modulecode,module,grade FROM results WHERE year=? AND semester=? AND userid=? AND grade='F'");
+            pst.setString(1, String.valueOf(yearBox.getSelectedItem()));
+            pst.setString(2, String.valueOf(semBox.getSelectedItem()));
+            pst.setString(3, userID.getText());
+            
+            
+            ResultSet rs = pst.executeQuery();
+            while(resultTable.getRowCount()>0)
+            {
+                ((DefaultTableModel)resultTable.getModel()).removeRow(0);
+            }
+            
+            int col = rs.getMetaData().getColumnCount();
+            while(rs.next())
+            {
+              Object [] rows = new Object[col];
+              for(int i=1;i<=col;i++)
+              {
+                  rows[i-1] = rs.getObject(i);
+              }
+              ((DefaultTableModel)resultTable.getModel()).insertRow(rs.getRow() -1, rows);
+            
+            }
+            rs.close();
+            pst.close();
+           
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CrudForAdminOnG.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudForAdminOnG.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        
+        
+        
+    }
+    
+    
+    
+    public void Connect()
+    {   
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/2checkdb", "root", "");
+            
+            
+        } 
+        catch (ClassNotFoundException ex) {
+            Logger.getLogger(CrudForAdminOnG.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudForAdminOnG.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        attendence = new javax.swing.JButton();
+        examresults = new javax.swing.JButton();
+        timetable = new javax.swing.JButton();
+        paymentdetails = new javax.swing.JButton();
+        logout = new javax.swing.JButton();
+        home = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jButton4 = new javax.swing.JButton();
+        Module9 = new javax.swing.JLabel();
+        Module10 = new javax.swing.JLabel();
+        Module11 = new javax.swing.JLabel();
+        semBoxR = new javax.swing.JComboBox<>();
+        yearBoxR = new javax.swing.JComboBox<>();
+        userIDR = new javax.swing.JPasswordField();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        Module3 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        Module4 = new javax.swing.JLabel();
+        Module5 = new javax.swing.JLabel();
+        semBox = new javax.swing.JComboBox<>();
+        yearBox = new javax.swing.JComboBox<>();
+        userID = new javax.swing.JPasswordField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        resultTable = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        attendence.setBackground(new java.awt.Color(0, 7, 152));
+        attendence.setIcon(new javax.swing.ImageIcon(getClass().getResource("/inf/creation/attendence.jpg"))); // NOI18N
+        attendence.setBorder(null);
+        attendence.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        attendence.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                attendenceActionPerformed(evt);
+            }
+        });
+        getContentPane().add(attendence, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 341, 42));
+
+        examresults.setBackground(new java.awt.Color(0, 7, 152));
+        examresults.setIcon(new javax.swing.ImageIcon(getClass().getResource("/inf/creation/examresultsclick.png"))); // NOI18N
+        examresults.setBorder(null);
+        examresults.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        examresults.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                examresultsActionPerformed(evt);
+            }
+        });
+        getContentPane().add(examresults, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 341, 42));
+
+        timetable.setBackground(new java.awt.Color(0, 7, 152));
+        timetable.setIcon(new javax.swing.ImageIcon(getClass().getResource("/inf/creation/time table.jpg"))); // NOI18N
+        timetable.setBorder(null);
+        timetable.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        timetable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                timetableActionPerformed(evt);
+            }
+        });
+        getContentPane().add(timetable, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 341, 42));
+
+        paymentdetails.setBackground(new java.awt.Color(0, 7, 152));
+        paymentdetails.setIcon(new javax.swing.ImageIcon(getClass().getResource("/inf/creation/paymebt details.jpg"))); // NOI18N
+        paymentdetails.setBorder(null);
+        paymentdetails.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        paymentdetails.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                paymentdetailsActionPerformed(evt);
+            }
+        });
+        getContentPane().add(paymentdetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 341, 42));
+
+        logout.setBackground(new java.awt.Color(0, 7, 152));
+        logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/inf/creation/logout.jpg"))); // NOI18N
+        logout.setBorder(null);
+        logout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutActionPerformed(evt);
+            }
+        });
+        getContentPane().add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 341, 42));
+
+        home.setIcon(new javax.swing.ImageIcon(getClass().getResource("/inf/creation/normalhome.png"))); // NOI18N
+        home.setBorder(null);
+        home.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        home.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                homeActionPerformed(evt);
+            }
+        });
+        getContentPane().add(home, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 341, 42));
+
+        jPanel4.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
+        jPanel4.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton4.setBackground(new java.awt.Color(0, 7, 152));
+        jButton4.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/inf/buttons/View.jpg"))); // NOI18N
+        jButton4.setBorder(null);
+        jButton4.setBorderPainted(false);
+        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButton4MousePressed(evt);
+            }
+        });
+        jPanel4.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 110, 20));
+
+        Module9.setBackground(new java.awt.Color(204, 204, 204));
+        Module9.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        Module9.setForeground(new java.awt.Color(0, 0, 0));
+        Module9.setText("Semester");
+        jPanel4.add(Module9, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 60, 20));
+
+        Module10.setBackground(new java.awt.Color(204, 204, 204));
+        Module10.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        Module10.setForeground(new java.awt.Color(0, 0, 0));
+        Module10.setText("S. ID");
+        jPanel4.add(Module10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 50, 20));
+
+        Module11.setBackground(new java.awt.Color(204, 204, 204));
+        Module11.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        Module11.setForeground(new java.awt.Color(0, 0, 0));
+        Module11.setText("year");
+        jPanel4.add(Module11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 50, 20));
+
+        semBoxR.setBackground(new java.awt.Color(255, 255, 255));
+        semBoxR.setForeground(new java.awt.Color(0, 0, 0));
+        semBoxR.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "1", "2" }));
+        semBoxR.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        semBoxR.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel4.add(semBoxR, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 110, -1));
+
+        yearBoxR.setBackground(new java.awt.Color(255, 255, 255));
+        yearBoxR.setForeground(new java.awt.Color(0, 0, 0));
+        yearBoxR.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "1", "2", "3", "4" }));
+        yearBoxR.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        yearBoxR.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel4.add(yearBoxR, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 110, -1));
+
+        userIDR.setBackground(new java.awt.Color(255, 255, 255));
+        userIDR.setForeground(new java.awt.Color(0, 0, 0));
+        userIDR.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        jPanel4.add(userIDR, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 110, 20));
+
+        jLabel2.setForeground(new java.awt.Color(89, 89, 89));
+        jLabel2.setText("view modules to be repeated");
+        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 370, 270, 160));
+
+        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
+        jPanel2.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton2.setBackground(new java.awt.Color(0, 7, 152));
+        jButton2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/inf/buttons/View.jpg"))); // NOI18N
+        jButton2.setBorder(null);
+        jButton2.setBorderPainted(false);
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButton2MousePressed(evt);
+            }
+        });
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 190, 32));
+
+        Module3.setBackground(new java.awt.Color(204, 204, 204));
+        Module3.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        Module3.setForeground(new java.awt.Color(0, 0, 0));
+        Module3.setText("Semester");
+        jPanel2.add(Module3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 60, 20));
+
+        jLabel9.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel9.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("Enter your student portal");
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 170, 20));
+
+        jLabel10.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel10.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel10.setText("Id to view exam results");
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 170, 20));
+
+        Module4.setBackground(new java.awt.Color(204, 204, 204));
+        Module4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        Module4.setForeground(new java.awt.Color(0, 0, 0));
+        Module4.setText("S. ID");
+        jPanel2.add(Module4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 50, 20));
+
+        Module5.setBackground(new java.awt.Color(204, 204, 204));
+        Module5.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        Module5.setForeground(new java.awt.Color(0, 0, 0));
+        Module5.setText("year");
+        jPanel2.add(Module5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 50, 20));
+
+        semBox.setBackground(new java.awt.Color(255, 255, 255));
+        semBox.setForeground(new java.awt.Color(0, 0, 0));
+        semBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "1", "2" }));
+        semBox.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        semBox.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel2.add(semBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 110, -1));
+
+        yearBox.setBackground(new java.awt.Color(255, 255, 255));
+        yearBox.setForeground(new java.awt.Color(0, 0, 0));
+        yearBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "1", "2", "3", "4" }));
+        yearBox.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        yearBox.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel2.add(yearBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 110, -1));
+
+        userID.setBackground(new java.awt.Color(255, 255, 255));
+        userID.setForeground(new java.awt.Color(0, 0, 0));
+        userID.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        jPanel2.add(userID, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 110, 20));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 130, 190, 230));
+
+        resultTable.setBackground(new java.awt.Color(204, 204, 204));
+        resultTable.setForeground(new java.awt.Color(0, 0, 0));
+        resultTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Module code", "module name", "Grade"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        resultTable.setFillsViewportHeight(true);
+        resultTable.setRowHeight(18);
+        resultTable.setSelectionBackground(new java.awt.Color(204, 204, 204));
+        resultTable.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        resultTable.setShowVerticalLines(false);
+        jScrollPane1.setViewportView(resultTable);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 130, 340, 230));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/inf/creation/new new desighn.jpg"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 560));
+
+        pack();
+        setLocationRelativeTo(null);
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void homeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeActionPerformed
+home home1 = new home();
+       home1.setVisible(true);
+       this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_homeActionPerformed
+
+    private void attendenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_attendenceActionPerformed
+attendence attendence1 = new attendence();
+       attendence1.setVisible(true);
+       this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_attendenceActionPerformed
+
+    private void timetableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timetableActionPerformed
+timetable timetable1 = new timetable();
+       timetable1.setVisible(true);
+       this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_timetableActionPerformed
+
+    private void examresultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_examresultsActionPerformed
+examresults examresults1 = new examresults();
+       examresults1.setVisible(true);
+       this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_examresultsActionPerformed
+
+    private void paymentdetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentdetailsActionPerformed
+paymentdetails paymentdetails1 = new paymentdetails();
+       paymentdetails1.setVisible(true);
+       this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_paymentdetailsActionPerformed
+
+    private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
+login frame1 = new login();
+        frame1.setVisible(true);
+        this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_logoutActionPerformed
+
+    private void jButton2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MousePressed
+        // TODO add your handling code here:
+        LoadResults();
+    }//GEN-LAST:event_jButton2MousePressed
+
+    private void jButton4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MousePressed
+        // TODO add your handling code here:
+        LoadRepeat();
+    }//GEN-LAST:event_jButton4MousePressed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(examresults.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(examresults.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(examresults.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(examresults.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new examresults().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Module10;
+    private javax.swing.JLabel Module11;
+    private javax.swing.JLabel Module3;
+    private javax.swing.JLabel Module4;
+    private javax.swing.JLabel Module5;
+    private javax.swing.JLabel Module9;
+    private javax.swing.JButton attendence;
+    private javax.swing.JButton examresults;
+    private javax.swing.JButton home;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton logout;
+    private javax.swing.JButton paymentdetails;
+    private javax.swing.JTable resultTable;
+    private javax.swing.JComboBox<String> semBox;
+    private javax.swing.JComboBox<String> semBoxR;
+    private javax.swing.JButton timetable;
+    private javax.swing.JPasswordField userID;
+    private javax.swing.JPasswordField userIDR;
+    private javax.swing.JComboBox<String> yearBox;
+    private javax.swing.JComboBox<String> yearBoxR;
+    // End of variables declaration//GEN-END:variables
+
+    private void setIconImage() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png")));
+    }
+}
